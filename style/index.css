@@ -1,0 +1,17 @@
+/* DEBUG *
+* {
+  box-shadow: inset 0 0 0 1px yellow;
+}
+/**/
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-size: 2vw;
+}
+
+body {
+  padding: 1em;
+  margin: 0;
+}

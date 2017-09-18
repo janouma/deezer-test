@@ -1,0 +1,35 @@
+{
+  "name": "deezer-test",
+  "version": "1.0.0",
+  "description": "deezer candidate test",
+  "main": "index.js",
+  "scripts": {
+    "start": "node_modules/http-server/bin/http-server -c-1 -p 8000"
+  },
+  "author": "",
+  "license": "ISC",
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "eslintConfig": {
+    "extends": [
+      "standard"
+    ]
+  },
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "systemjs": "^0.20.19",
+    "systemjs-plugin-babel": "0.0.25",
+    "systemjs-plugin-css": "^0.1.36"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.0",
+    "eslint": "^4.7.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "http-server": "^0.10.0",
+    "standard": "^10.0.3"
+  }
+}

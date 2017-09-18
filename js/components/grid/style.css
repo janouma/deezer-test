@@ -1,0 +1,12 @@
+.dzr-grid {
+  border-spacing: 0;
+}
+
+.dzr-grid,
+.dzr-grid td {
+  border: solid 1px gray;
+}
+
+.dzr-grid td {
+  white-space: nowrap;
+}
