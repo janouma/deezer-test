@@ -41,7 +41,7 @@ export default function Grid ({data}) {
            row.type
          ]
 
-         return (<tr>
+         return (<tr key={row.id}>
                   {values.map(value => (<td>{value}</td>))}
                 </tr>)
        })}
