@@ -10,3 +10,9 @@
 .dzr-grid td {
   white-space: nowrap;
 }
+
+.dzr-grid .col {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}

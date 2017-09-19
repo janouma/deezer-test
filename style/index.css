@@ -11,7 +11,8 @@ body {
 }
 
 body,
-input {
+input,
+button {
   font-size: 16pt;
 }
 

@@ -5,7 +5,7 @@ export default class Search extends React.Component {
     return (
       <form onSubmit={e => this._search(e)}>
         <p>
-          <input type='text' placeholder='type in key words' onInput={e => this.query = e.target.value} />
+          <input type='text' placeholder='search' onInput={e => this.query = e.target.value} />
         </p>
       </form>
     )

@@ -2,18 +2,34 @@ import React from 'react'
 
 import './style.css'
 
+function getValues (row) {
+  return [
+    row.id,
+    row.readable ? 'yes' : 'no',
+    row.title,
+    row.link,
+    row.duration,
+    row.rank,
+    row.explicit_lyrics,
+    row.preview,
+    row.artist.name,
+    row.album.title,
+    row.type
+  ]
+}
+
 export default class Grid extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      filtered: props.data
+      filtered: props.data.map(getValues)
     }
   }
 
   componentWillReceiveProps (nextProps) {
     this.setState({
-      filtered: nextProps.data
+      filtered: nextProps.data.map(getValues)
     })
   }
 
@@ -39,32 +55,26 @@ export default class Grid extends React.Component {
         </p>
         <table className='dzr-grid'>
           <tr>
-            {header.map(name => (
+            {header.map((name, index) => (
                <td>
-                 {name}
+                 <button className='col' onClick={this._sortBy(index)}>
+                   {name}
+                 </button>
                </td>
              ))}
           </tr>
-          {this.state.filtered.map(row => {
-             const values = [
-               row.id,
-               row.readable ? 'yes' : 'no',
-               row.title,
-               row.link,
-               row.duration,
-               row.rank,
-               row.explicit_lyrics,
-               row.preview,
-               row.artist.name,
-               row.album.title,
-               row.type
-             ]
-
-             return (<tr key={row.id}>
-                       {values.map(value => (<td>
-                                               {value}
-                                             </td>))}
-                     </tr>)
+          {this.state.filtered.map(values => {
+             return (
+               <tr key={values[0]}>
+                 {values.map(value => {
+                    return (
+                      <td>
+                        {value}
+                      </td>
+                    )
+                  })}
+               </tr>
+             )
            })}
         </table>
       </div>
@@ -75,7 +85,13 @@ export default class Grid extends React.Component {
     const lowcaseWords = keyWords.toLowerCase()
 
     this.setState({
-      filtered: this.props.data.filter(row => row.title.toLowerCase().includes(lowcaseWords))
+      filtered: this.props.data
+        .map(getValues)
+        .filter(row => row[2].toLowerCase().includes(lowcaseWords))
     })
+  }
+
+  _sortBy (index) {
+    //
   }
 }
