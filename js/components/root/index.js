@@ -3,13 +3,15 @@ import Search from 'components/search/index.js'
 import Grid from 'components/grid/index.js'
 import api from 'utils/api.js'
 
-const PAGE_SIZE = 25
+const BATCH_SIZE = 10
+const SCROLL_RESET_DELAY = 500
 
 export default class Root extends React.Component {
   constructor (props) {
     super(props)
 
-    this.offset = 0
+    this.pageSize = BATCH_SIZE
+    this.wait = false
 
     this.state = {
       data: []
@@ -33,7 +35,12 @@ export default class Root extends React.Component {
   }
 
   async _search (query) {
-    const results = await api.get(`http://api.deezer.com/search/track?q=${query}&index=${this.offset}&limit=${PAGE_SIZE}`)
+    if (query) {
+      this.query = query
+      this.pageSize = BATCH_SIZE
+    }
+
+    const results = await api.get(`http://api.deezer.com/search/track?q=${query || this.query}&limit=${this.pageSize}`)
 
     this.setState ({
       data: results.data
@@ -41,10 +48,15 @@ export default class Root extends React.Component {
   }
 
   _detectEndScroll () {
-    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-      // DEBUG
-      console.debug('end scroll detected')
-      // END DEBUG
+    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight && !this.wait) {
+      this.wait = true
+
+      if (this.query) {
+        this.pageSize += BATCH_SIZE
+        this._search()
+      }
+
+      window.setTimeout(() => (this.wait = false), SCROLL_RESET_DELAY)
     }
   }
 }
