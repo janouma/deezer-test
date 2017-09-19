@@ -57,7 +57,7 @@ export default class Grid extends React.Component {
           <tr>
             {header.map((name, index) => (
                <td>
-                 <button className='col' onClick={this._sortBy(index)}>
+                 <button className='col' onClick={() => this._sortBy(index)}>
                    {name}
                  </button>
                </td>
@@ -92,6 +92,20 @@ export default class Grid extends React.Component {
   }
 
   _sortBy (index) {
-    //
+    const filtered = Array.from(this.state.filtered)
+
+    filtered.sort((a, b) => {
+      if (a[index] < b[index]) {
+        return -1
+      }
+
+      if (a[index] > b[index]) {
+        return 1
+      }
+
+      return 0
+    })
+
+    this.setState({filtered})
   }
 }
